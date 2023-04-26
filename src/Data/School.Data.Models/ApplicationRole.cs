@@ -3,9 +3,8 @@ namespace School.Data.Models
 {
     using System;
 
-    using School.Data.Common.Models;
-
     using Microsoft.AspNetCore.Identity;
+    using School.Data.Common.Models;
 
     public class ApplicationRole : IdentityRole, IAuditInfo, IDeletableEntity
     {

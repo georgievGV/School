@@ -2,9 +2,8 @@
 {
     using System.Diagnostics;
 
-    using School.Web.ViewModels;
-
     using Microsoft.AspNetCore.Mvc;
+    using School.Web.ViewModels;
 
     public class HomeController : BaseController
     {

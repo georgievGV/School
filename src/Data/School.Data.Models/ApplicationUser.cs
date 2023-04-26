@@ -4,9 +4,8 @@ namespace School.Data.Models
     using System;
     using System.Collections.Generic;
 
-    using School.Data.Common.Models;
-
     using Microsoft.AspNetCore.Identity;
+    using School.Data.Common.Models;
 
     public class ApplicationUser : IdentityUser, IAuditInfo, IDeletableEntity
     {
@@ -22,6 +21,12 @@ namespace School.Data.Models
         public DateTime CreatedOn { get; set; }
 
         public DateTime? ModifiedOn { get; set; }
+
+        public string StudentId { get; set; }
+
+        public string ParentId { get; set; }
+
+        public string TeacherId { get; set; }
 
         // Deletable entity
         public bool IsDeleted { get; set; }

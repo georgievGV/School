@@ -6,11 +6,10 @@
     using System.Threading;
     using System.Threading.Tasks;
 
-    using School.Data.Common.Models;
-    using School.Data.Models;
-
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
+    using School.Data.Common.Models;
+    using School.Data.Models;
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
     {
@@ -25,6 +24,28 @@
         }
 
         public DbSet<Setting> Settings { get; set; }
+
+        public DbSet<Class> Classes { get; set; }
+
+        public DbSet<ClassTeacher> ClassesTeachers { get; set; }
+
+        public DbSet<Grade> Grades { get; set; }
+
+        public DbSet<Note> Notes { get; set; }
+
+        public DbSet<Parent> Parents { get; set; }
+
+        public DbSet<Student> Students { get; set; }
+
+        public DbSet<StudentBook> StudentBooks { get; set; }
+
+        public DbSet<StudentParent> StudentsParents { get; set; }
+
+        public DbSet<Subject> Subjects { get; set; }
+
+        public DbSet<Teacher> Teachers { get; set; }
+
+        public DbSet<TeacherSubject> TeacherSubjects { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);
 
@@ -47,6 +68,11 @@
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<ClassTeacher>().HasKey(x => new { x.ClassId, x.TeacherId });
+            builder.Entity<TeacherSubject>().HasKey(x => new { x.TeacherId, x.SubjectId });
+            builder.Entity<StudentParent>().HasKey(x => new { x.StudentId, x.ParentId });
+            builder.Entity<Student>().HasOne(x => x.StudentBook).WithOne(x => x.Student).OnDelete(DeleteBehavior.Restrict);
+
             // Needed for Identity models configuration
             base.OnModelCreating(builder);
 
