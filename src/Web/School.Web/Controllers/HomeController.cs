@@ -13,7 +13,7 @@
         }
 
         public IActionResult Privacy()
-        {
+        { 
             return this.View();
         }
 

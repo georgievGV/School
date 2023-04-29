@@ -5,7 +5,6 @@ namespace School.Web
 
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Http;
-    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
@@ -64,6 +63,8 @@ namespace School.Web
             services.AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>));
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
             services.AddScoped<IDbQueryRunner, DbQueryRunner>();
+            services.AddScoped<IStudentService, StudentService>();
+            services.AddScoped<IClassService, ClassService>();
 
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
