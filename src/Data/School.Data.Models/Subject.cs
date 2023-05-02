@@ -6,12 +6,12 @@
 
     public class Subject
     {
-        public Subject(string name, int classNumber, string classSpecialty)
+        public Subject(string name, int classNumber)
             : this()
         {
             this.Name = name;
             this.ClassNumber = classNumber;
-            this.ClassSpecialty = classSpecialty;
+            this.ClassSpecialty = "NotSet";
         }
 
         public Subject()

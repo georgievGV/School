@@ -65,6 +65,7 @@ namespace School.Web
             services.AddScoped<IDbQueryRunner, DbQueryRunner>();
             services.AddScoped<IStudentService, StudentService>();
             services.AddScoped<IClassService, ClassService>();
+            services.AddScoped<ISubjectService, SubjectService>();
 
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
