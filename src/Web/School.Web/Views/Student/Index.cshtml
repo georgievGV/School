@@ -1,0 +1,33 @@
+﻿@model School.Web.ViewModels.Student.StudentModel
+
+@{
+    ViewData["Title"] = "Student panel";
+    Layout = "_Layout";
+}
+
+<h2 class="text-left">@Model.FirstName @Model.LastName @Model.ClassName</h2>
+
+<div class="position-absolute top-50 start-0 translate-middle-y">
+    <div class="container">
+        <div class="card mb-3" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">Enter in class</h5>
+                <p class="card-text">Choose a class to enter.</p>
+                <a href="/Admin/Index" class="btn btn-primary">- Go -  </a>
+            </div>
+        </div>
+        <div class="card mb-3" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">Studentbook</h5>
+                <a href="#" class="btn btn-primary"> - Go -</a>
+            </div>
+        </div>
+
+        <div class="card mb-3" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">Curriculum</h5>
+                <a href="#" class="btn btn-primary"> - Go - </a>
+            </div>
+        </div>
+    </div>
+</div>

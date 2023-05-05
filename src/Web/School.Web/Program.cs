@@ -66,6 +66,7 @@ namespace School.Web
             services.AddScoped<IStudentService, StudentService>();
             services.AddScoped<IClassService, ClassService>();
             services.AddScoped<ISubjectService, SubjectService>();
+            services.AddScoped<ITeacherService, TeacherService>();
 
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();

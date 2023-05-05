@@ -1,8 +1,32 @@
-﻿@using School.Common
+﻿@model School.Web.ViewModels.Home.IndexViewModel
+@using School.Common
 @{
     this.ViewData["Title"] = "Home Page";
 }
 
+
 <div class="text-center">
     <h1 class="display-4">Welcome to @GlobalConstants.SystemName!</h1>
+</div>
+
+<div class="mb-5"></div>
+
+<div class="text-center">
+    <img src="https://world-schools.com/wp-content/uploads/2018/08/Best-Boarding-Schools-Germany-1024x382.jpg"
+         style="max-width:100%;" class=" img-fluid" alt="schoolImg">
+</div>
+
+<div class="mb-5"></div>
+
+<div class="jumbotron">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 text-center">
+                <h2>@Model.Students students</h2>
+            </div>
+            <div class="col-md-6 text-center">
+                <h2>@Model.Teachers teachers</h2>
+            </div>
+        </div>
+    </div>
 </div>

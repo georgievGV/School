@@ -3,13 +3,34 @@
     using System.Diagnostics;
 
     using Microsoft.AspNetCore.Mvc;
+    using School.Services.Data;
     using School.Web.ViewModels;
+    using School.Web.ViewModels.Home;
 
     public class HomeController : BaseController
     {
+        private readonly IStudentService studentService;
+        private readonly ITeacherService teacherService;
+
+        public HomeController(
+            IStudentService studentService,
+            ITeacherService teacherService)
+        {
+            this.studentService = studentService;
+            this.teacherService = teacherService;
+        }
+
         public IActionResult Index()
         {
-            return this.View();
+            var studentsCount = this.studentService.GetStudentCount();
+            var teachersCount = this.teacherService.GetTeachersCount();
+            var model = new IndexViewModel
+            {
+                Students = studentsCount,
+                Teachers = teachersCount,
+            };
+
+            return this.View(model);
         }
 
         public IActionResult Privacy()

@@ -39,8 +39,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "School.Web.Tests", "Tests\S
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "School.Web.ViewModels", "Web\School.Web.ViewModels\School.Web.ViewModels.csproj", "{13B7AACB-9C85-4409-8D4B-95A67D0DFFF7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KapinkaSchool", "..\..\..\..\KapinkaSchool\KapinkaSchool\KapinkaSchool.csproj", "{0CBF7B3E-92D6-492E-AFBE-D1948F8407B4}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "School.Services", "..\..\..\..\KapinkaSchool\School.Services\School.Services.csproj", "{FEBBBAA2-BD1C-415B-8796-B7F3AE46E547}"
 EndProject
 Global
@@ -105,10 +103,6 @@ Global
 		{13B7AACB-9C85-4409-8D4B-95A67D0DFFF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{13B7AACB-9C85-4409-8D4B-95A67D0DFFF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{13B7AACB-9C85-4409-8D4B-95A67D0DFFF7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0CBF7B3E-92D6-492E-AFBE-D1948F8407B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0CBF7B3E-92D6-492E-AFBE-D1948F8407B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0CBF7B3E-92D6-492E-AFBE-D1948F8407B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0CBF7B3E-92D6-492E-AFBE-D1948F8407B4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FEBBBAA2-BD1C-415B-8796-B7F3AE46E547}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FEBBBAA2-BD1C-415B-8796-B7F3AE46E547}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FEBBBAA2-BD1C-415B-8796-B7F3AE46E547}.Release|Any CPU.ActiveCfg = Release|Any CPU

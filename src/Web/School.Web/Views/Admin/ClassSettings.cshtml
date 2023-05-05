@@ -1,0 +1,38 @@
+﻿@model School.Web.ViewModels.Administration.Dashboard.ClassSettingsViewModel
+
+@{
+    ViewData["Title"] = "Class Settings";
+    Layout = "_AdminLayout";
+}
+
+<h3>@ViewData["Title"]</h3>
+
+
+<p>Choose subjects to add</p>
+
+<div class="row">
+    @foreach (var subjectModel in Model.Subjects)
+    {
+        <div class="col-sm-6">
+            <div class="form-check">
+                <input class="form-check-input"
+                       type="checkbox"
+                       value="@subjectModel.Name"
+                       name="SubjectNames"
+                       id="subject_@subjectModel.Name"
+                       checked="@subjectModel.IsChecked">
+                <label class="form-check-label" for="subject_@subjectModel.Name">
+                    @subjectModel.Name @subjectModel.ClassNumber @subjectModel.ClassSpecialty
+                </label>
+            </div>
+        </div>
+
+
+    }
+</div>
+
+@section AdminPanel  {
+    <li class="nav-item">
+        <a class="nav-link text-dark" href="/Admin/Index">AdminPanel</a>
+    </li>
+            }

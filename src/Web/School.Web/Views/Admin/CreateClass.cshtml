@@ -1,0 +1,36 @@
+﻿@using School.Services.Data;
+@model School.Web.ViewModels.Administration.Dashboard.ClassInputModel
+
+@{
+    ViewData["Title"] = "Create Class";
+    Layout = "_AdminLayout";
+}
+
+<h3>@ViewData["Title"]</h3>
+<hr class="col-sm-4" />
+
+<form asp-controller="Admin" asp-action="CreateClass" method="post" class="form">
+    <div class="col-sm-4">
+        <div class="form-floating mb-3">
+            <input asp-for=@Model.ClassNumber class="form-control" id="firstName" placeholder="first name">
+            <label asp-for=@Model.ClassNumber>ClassNumber</label>
+            <span asp-validation-for=@Model.ClassNumber class="text-danger"></span>
+        </div>
+        <div class="form-floating mb-3">
+            <input asp-for=@Model.Specialty class="form-control" id="middleName" placeholder="middle name...">
+            <label asp-for=@Model.Specialty>Specialty</label>
+            <span asp-validation-for=@Model.Specialty class="text-danger"></span>
+
+        </div>
+
+        <input class="btn btn-primary" type="submit" value="Submit">
+        <a href="/Admin/" class="btn btn-primary">AdminPanel</a>
+    </div>
+</form>
+
+
+@section AdminPanel  {
+    <li class="nav-item">
+        <a class="nav-link text-dark" href="/Admin/Index">AdminPanel</a>
+    </li>
+        }

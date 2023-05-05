@@ -1,0 +1,64 @@
+﻿@model School.Web.ViewModels.Administration.Dashboard.ClassListViewModel
+
+@{
+    ViewData["Title"] = "Admin panel";
+    Layout = "_AdminLayout";
+}
+
+<h2 class="text-left">@ViewData["Title"]</h2>
+
+
+<div class="position-absolute top-50 start-0 translate-middle-y">
+    <div class="container">
+        <div class="card mb-3" style="width: 15rem;">
+            <div class="card-body">
+                <h5 class="card-title">Create class</h5>
+                <a href="/Admin/CreateClass" class="btn btn-primary">- Go -  </a>
+            </div>
+        </div>
+        <div class="card mb-3" style="width: 15rem;">
+            <div class="card-body">
+                <h5 class="card-title">Craete subjects</h5>
+                <a href="/Admin/CreateSubject" class="btn btn-primary"> - Go -</a>
+            </div>
+        </div>
+
+        <div class="card mb-3" style="width: 15rem;">
+            <div class="card-body">
+                <h5 class="card-title">Curriculum</h5>
+                <a href="#" class="btn btn-primary"> - Go - </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mb-5"></div>
+
+<div class="row">
+    @{
+        foreach (var currClass in Model.Classes)
+        {
+            <div class="col-md-2">
+                <div class="card" style="width: 7rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">@currClass.ClassNumber @currClass.Specialty</h5>
+                        <a href="/Admin/ClassSettings?id=@currClass.Id" class="btn btn-primary"> Settings </a>
+                    </div>
+                </div>
+            </div>
+        }
+
+    }
+</div>
+
+
+@section AdminPanel  {
+    <li class="nav-item">
+        <a class="nav-link text-dark" href="/Admin/Index">AdminPanel</a>
+    </li>
+        }
+
+@section Scripts {
+    <script>
+    </script>
+}

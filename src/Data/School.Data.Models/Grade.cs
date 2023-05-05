@@ -32,7 +32,6 @@
                 6 => GradeType.Excellent,
                 _ => throw new ArgumentException("The Grade must be between 2 and 6"),
             };
-
         }
     }
 }
