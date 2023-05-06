@@ -13,18 +13,25 @@
         {
             this.Students = new List<StudentModel>();
             this.Teachers = new List<TeacherModel>();
-            this.Subjects = new List<SubjectModel>();
+            this.SubjectsOwned = new List<SubjectModel>();
             this.StudentBooks = new List<StudentBookModel>();
+            this.AvailableSubjectsToAdd = new List<SubjectModel>();
         }
 
-        public string ClassName { get; set; }
+        public string Id { get; set; }
+
+        public int ClassNumber { get; set; }
 
         public List<StudentModel> Students { get; set; }
 
         public List<TeacherModel> Teachers { get; set; }
 
-        public List<SubjectModel> Subjects { get; set; }
+        public List<SubjectModel> SubjectsOwned { get; set; }
+
+        public List<SubjectModel> AvailableSubjectsToAdd { get; set; }
 
         public List<StudentBookModel> StudentBooks { get; set; }
+
+        public List<string> SubjectNames { get; set; }
     }
 }

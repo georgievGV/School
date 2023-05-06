@@ -41,16 +41,13 @@
             return classes;
         }
 
-        public void AddSubject(List<Subject> subjects)
+        public void AddSubject(Class @class, List<Subject> subjects)
         {
             foreach (var subject in subjects)
             {
-                var currentClass = this.dbContext.Classes
-                    .FirstOrDefault(c => c.ClassNumber == subject.ClassNumber && c.Specialty == subject.ClassSpecialty);
-
                 if (!Validator.CheckIfExist(subject, this.dbContext))
                 {
-                    currentClass.Subjects.Add(subject);
+                    @class.Subjects.Add(subject);
                 }
             }
 

@@ -12,7 +12,7 @@
 
         IList<Class> GetClasses();
 
-        void AddSubject(List<Subject> subjectst);
+        void AddSubject(Class @class, List<Subject> subjectst);
 
         IList<Subject> GetSubjects(int classNumber);
 

@@ -35,6 +35,8 @@
         {
             var model = new ClassSettingsViewModel();
             var subjectsDb = this.subjectService.GetSubjects(input.Id).OrderBy(s => s.Name).ToList();
+            var classNumber = this.classService.GetClassById(input.Id).ClassNumber;
+
             foreach (var subject in subjectsDb)
             {
                 var subjectModel = new SubjectModel
@@ -45,38 +47,54 @@
                     IsChecked = false,
                 };
 
-                model.Subjects.Add(subjectModel);
+                model.SubjectsOwned.Add(subjectModel);
             }
+
+            model.AvailableSubjectsToAdd = this.GetAvailableSubjectsOrdered(classNumber, model.SubjectsOwned);
+
 
             return this.View(model);
         }
 
         [HttpPost]
-        public IActionResult ClassSettings(ClassSettingsInputModel input)
+        public IActionResult ClassSettings(ClassSettingsViewModel input)
         {
             if (!this.ModelState.IsValid)
             {
                 return this.View();
             }
 
-            var currClass = this.classService.GetClassById(input.Id);
+            var header = this.HttpContext.Request.Headers.FirstOrDefault(h => h.Key == "Referer").Value;
+            var id = this.GetId(header);
+
+            var currentClass = this.classService.GetClassById(id);
             var currentSubjects = new List<Subject>();
 
-            foreach (var subject in input.SubjectNames)
+            foreach (var subjectName in input.SubjectNames)
             {
                 var currentSubject = new Subject
                 {
-                    Name = subject,
-                    ClassNumber = currClass.ClassNumber,
-                    ClassSpecialty = currClass.Specialty,
+                    Name = subjectName,
+                    ClassNumber = currentClass.ClassNumber,
+                    ClassSpecialty = currentClass.Specialty,
                 };
 
+                var subjectModel = new SubjectModel
+                {
+                    Name = subjectName,
+                    ClassNumber = currentClass.ClassNumber,
+                    ClassSpecialty = currentClass.Specialty,
+                    IsChecked = false,
+                };
+
+                input.SubjectsOwned.Add(subjectModel);
                 currentSubjects.Add(currentSubject);
             }
 
-            this.classService.AddSubject(currentSubjects);
+            input.AvailableSubjectsToAdd = this.GetAvailableSubjectsOrdered(currentClass.ClassNumber, input.SubjectsOwned);
+            this.classService.AddSubject(currentClass, currentSubjects);
 
-            return this.Redirect($"/Admin/ClassSettins?id={input.Id}");
+            return this.Redirect($"/Admin/ClassSettings?id={id}");
         }
 
         public IActionResult CreateClass()
@@ -119,26 +137,74 @@
             return this.Redirect("/Admin/CreateSubject");
         }
 
-        private List<SubjectModel> GetAllSubjectsOrdered()
+        public List<SubjectModel> GetAvailableSubjectsOrdered(int classNumber, List<SubjectModel> subjectsOwned)
         {
-            var subjects = this.subjectService.GetSubjects().Where(s => s.ClassSpecialty == "NotSet").ToList();
+            var subjects = this.subjectService.GetSubjects().Where(s => s.ClassSpecialty == "NotSet" && s.ClassNumber == classNumber).ToList();
             var subjectsOrdered = new List<SubjectModel>();
+
+
             foreach (var subject in subjects)
             {
-                var subjectModel = new SubjectModel
-                {
-                    Name = subject.Name,
-                    ClassNumber = subject.ClassNumber,
-                    ClassSpecialty = subject.ClassSpecialty,
-                    IsChecked = false,
-                };
+                bool isAvailable = true;
 
-                subjectsOrdered.Add(subjectModel);
+                foreach (var subjectOwned in subjectsOwned)
+                {
+                    if (subjectOwned.Name == subject.Name)
+                    {
+                        isAvailable = false;
+                        break;
+                    }
+                }
+
+                if (isAvailable)
+                {
+                    var subjectModel = new SubjectModel
+                    {
+                        Name = subject.Name,
+                        ClassNumber = subject.ClassNumber,
+                        ClassSpecialty = subject.ClassSpecialty,
+                        IsChecked = false,
+                    };
+                    subjectsOrdered.Add(subjectModel);
+                }
             }
 
             subjectsOrdered = subjectsOrdered.OrderBy(x => x.ClassNumber).ThenBy(x => x.ClassSpecialty).ThenBy(x => x.Name).ToList();
 
             return subjectsOrdered;
+        }
+
+        public string GetId(string headerValue)
+        {
+            string symbols = "id=";
+            int count = 0;
+            string id = string.Empty;
+
+            for (int i = 0; i < headerValue.Length; i++)
+            {
+
+                if (count == symbols.Length)
+                {
+                    if (headerValue[i] != '&')
+                    {
+                        id += headerValue[i];
+                        continue;
+                    }
+
+                    break;
+                }
+
+                if (headerValue[i] == symbols[count])
+                {
+                    count++;
+                }
+                else
+                {
+                    count = 0;
+                }
+            }
+
+            return id;
         }
     }
 
