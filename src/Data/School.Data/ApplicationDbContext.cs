@@ -47,6 +47,13 @@
 
         public DbSet<TeacherSubject> TeacherSubjects { get; set; }
 
+        public DbSet<StudentRequest> StudentRequests { get; set; }
+
+        public DbSet<TeacherRequest> TeacherRequests { get; set; }
+
+        public DbSet<ParentRequest> ParentRequests { get; set; }
+
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)

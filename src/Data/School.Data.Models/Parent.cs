@@ -6,12 +6,10 @@
     {
 
         public Parent()
-        {
-            
+        {  
         }
 
-        public Parent(string firstName, string middleName, string lastName,
-            string email, string mobileNumber, string address)
+        public Parent(string firstName, string middleName, string lastName, string email, string mobileNumber, string address)
             : base(firstName, middleName, lastName, email, mobileNumber, address)
         {
             this.Students = new HashSet<StudentParent>();

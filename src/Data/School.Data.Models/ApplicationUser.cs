@@ -28,6 +28,8 @@ namespace School.Data.Models
 
         public string TeacherId { get; set; }
 
+        public string PersonReqiestId { get; set; }
+
         // Deletable entity
         public bool IsDeleted { get; set; }
 

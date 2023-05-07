@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-
+    using System.Text.Json;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.CodeAnalysis;
     using School.Data.Models;
@@ -26,7 +26,7 @@
         public IActionResult Index()
         {
             var model = new ClassListViewModel();
-            model.Classes = this.classService.GetClasses().OrderBy(c => c.ClassNumber).ThenBy(c => c.Specialty).ToList();
+            model.Classes = this.classService.GetClasses();
 
             return this.View(model);
         }

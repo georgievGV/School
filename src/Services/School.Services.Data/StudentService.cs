@@ -32,7 +32,24 @@
             return student;
         }
 
-        public Student GetStudent(string id)
+        public StudentRequest CreateStudentRequest(
+            string firstName, string middleName, string lastName, string email, string mobileNumber, string address, int classNumber, string Specialty)
+        {
+            var request = new StudentRequest(firstName, middleName, lastName, email, mobileNumber, address, classNumber, Specialty);
+            this.DbContext.StudentRequests.Add(request);
+            this.DbContext.SaveChanges();
+
+            return request;
+        }
+
+        public StudentRequest GetStudentRequestById(string id)
+        {
+            var request = this.DbContext.StudentRequests.FirstOrDefault(x => x.Id == id);
+
+            return request;
+        }
+
+        public Student GetStudentById(string id)
         {
             var student = this.DbContext.Students.FirstOrDefault(x => x.Id == id);
             return student;

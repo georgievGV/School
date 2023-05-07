@@ -11,8 +11,7 @@
 
         }
 
-        public Person(string firstName, string middleName, string lastName,
-            string email, string mobileNumber, string address)
+        public Person(string firstName, string middleName, string lastName, string email, string mobileNumber, string address)
             : this()
         {
             this.FirstName = firstName;

@@ -18,7 +18,7 @@
         public void CreateClass(int classNumber, string specialty)
         {
 
-            var @class = new Class { ClassNumber = classNumber, Specialty = specialty};
+            var @class = new Class { ClassNumber = classNumber, Specialty = specialty };
 
             if (!Validator.CheckIfExist(@class, this.dbContext))
             {
@@ -34,11 +34,27 @@
             return @class;
         }
 
-        public IList<Class> GetClasses()
+        public List<Class> GetClasses()
         {
-            var classes = this.dbContext.Classes.ToList();
+            var classes = this.dbContext.Classes.OrderBy(c => c.ClassNumber).ThenBy(c => c.Specialty).ToList();
 
             return classes;
+        }
+
+        public List<string> GetSpecialties(int classNumber)
+        {
+            var classes = this.dbContext.Classes.Where(c => c.ClassNumber == classNumber).OrderBy(c => c.Specialty).ToList();
+            var specialties = new List<string>();
+
+            foreach (var @class in classes)
+            {
+                if (@class.Specialty != "NotSet")
+                {
+                    specialties.Add(@class.Specialty);
+                }
+            }
+
+            return specialties;
         }
 
         public void AddSubject(Class @class, List<Subject> subjects)
@@ -54,7 +70,7 @@
             this.dbContext.SaveChanges();
         }
 
-        public IList<Subject> GetSubjects(int classNumber)
+        public List<Subject> GetSubjects(int classNumber)
         {
             var subjects = this.dbContext.Subjects.Where(s => s.ClassNumber == classNumber).ToList();
 

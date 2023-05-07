@@ -10,11 +10,13 @@
 
         Class GetClassById(string id);
 
-        IList<Class> GetClasses();
+        List<Class> GetClasses();
+
+        List<string> GetSpecialties(int classNumber);
 
         void AddSubject(Class @class, List<Subject> subjectst);
 
-        IList<Subject> GetSubjects(int classNumber);
+        List<Subject> GetSubjects(int classNumber);
 
         void AddTeacher(Class @class, Teacher teacher);
 

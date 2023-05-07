@@ -40,12 +40,12 @@
 
             if (classId.Length == 0)
             {
-                subjects = this.dbContext.Subjects.ToList();
+                subjects = this.dbContext.Subjects.ToList().OrderBy(s => s.Name).ToList();
 
                 return subjects;
             }
 
-            subjects = this.dbContext.Subjects.Where(s => s.ClassId == classId[0]).ToList();
+            subjects = this.dbContext.Subjects.Where(s => s.ClassId == classId[0]).OrderBy(s => s.Name).ToList();
 
             return subjects;
         }

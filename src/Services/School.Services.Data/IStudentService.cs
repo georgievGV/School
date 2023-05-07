@@ -6,7 +6,12 @@
     {
         Student Create(string firstName, string middleName, string lastName, string email, string mobileNumber, string address);
 
-        Student GetStudent(string id);
+        StudentRequest CreateStudentRequest(
+            string firstName, string middleName, string lastName, string email, string mobileNumber, string address, int classNumber, string Specialty);
+
+        public StudentRequest GetStudentRequestById(string id);
+
+        Student GetStudentById(string id);
 
         int GetStudentCount();
 
