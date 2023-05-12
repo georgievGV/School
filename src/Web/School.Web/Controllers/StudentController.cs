@@ -6,6 +6,7 @@
     using Microsoft.AspNetCore.Mvc;
     using School.Data.Models;
     using School.Services.Data;
+    using School.Web.ViewModels.Student;
 
     public class StudentController : Controller
     {
@@ -25,7 +26,9 @@
 
         public IActionResult Index()
         {
-            return this.View();
+            var model = new StudentModel();
+
+            return this.View(model);
         }
     }
 }

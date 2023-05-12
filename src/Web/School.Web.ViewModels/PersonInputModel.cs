@@ -11,7 +11,6 @@
     {
         public PersonInputModel()
         {
-            this.SpecialtiesSelectList = new List<SelectListItem>();
             this.ClassesSelectList = new List<SelectListItem>();
         }
 
@@ -50,18 +49,11 @@
         [Display(Name = "Address")]
         public string Address { get; set; }
 
-        public List<Class> Classes { get; set; }
+        public int ClassNumber { get; set; }
 
-        public string SelectedClass { get; set; }
-
-        public string SelectedSpecialty { get; set; }
+        public string Specialty { get; set; }
 
         [Required]
         public List<SelectListItem> ClassesSelectList { get; set; }
-
-        [Required]
-        public List<SelectListItem> SpecialtiesSelectList { get; set; }
-
-        public string ClassId { get; set; }
     }
 }

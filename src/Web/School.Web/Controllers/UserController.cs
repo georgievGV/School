@@ -1,6 +1,7 @@
 ﻿namespace School.Web.Controllers
 {
     using System.Collections.Generic;
+    using System.Linq;
     using System.Text.Json;
     using System.Threading.Tasks;
 
@@ -91,32 +92,32 @@
             }
 
 
-            var classNumber = int.Parse(input.SelectedClass);
-            //var request = this.studentService.CreateStudentRequest(
-              //  input.FirstName, input.MiddleName, input.LastName, input.Email, input.MobileNumber, input.Address, classNumber, input.SelectedSpecialty);
+            var classNumber = input.ClassNumber;
+            var request = this.studentService.CreateStudentRequest(
+            input.FirstName, input.MiddleName, input.LastName, input.Email, input.MobileNumber, input.Address, classNumber, input.Specialty);
             var user = await this.userManager.GetUserAsync(this.User);
-            //user.PersonReqiestId = request.Id;
+            user.PersonReqiestId = request.Id;
 
             this.dbContext.SaveChanges();
             return this.Redirect("/Student/Index");
         }
 
-        [HttpPost]
-        public IActionResult GetSpecialtiesByClassNumber(string selectedClass)
+
+        public IActionResult GetSpecialtiesByClassNumber(int classNumber)
         {
-            var specialties = this.classService.GetSpecialties(int.Parse(selectedClass));
-            return this.Json(new { data = specialties}, System.Web.Mvc.JsonRequestBehavior.AllowGet);
+            var specialties = this.GetSpecialties(classNumber);
+            return this.Json(specialties);
         }
 
         private List<SelectListItem> PopulateClasses()
         {
-            var currClassNumber = 0;
+            var previousClassNumber = 0;
             var classes = this.classService.GetClasses();
             var selectList = new List<SelectListItem>();
 
             for (int i = 0; i < classes.Count; i++)
             {
-                if (classes[i].ClassNumber != currClassNumber)
+                if (classes[i].ClassNumber != previousClassNumber)
                 {
                     var selectListItem = new SelectListItem
                     {
@@ -125,11 +126,32 @@
                     };
 
                     selectList.Add(selectListItem);
-                    currClassNumber = classes[i].ClassNumber;
+                    previousClassNumber = classes[i].ClassNumber;
                 }
             }
 
             return selectList;
+        }
+
+        private List<SelectListItem> GetSpecialties(int classNumber = 1)
+        {
+            var classList = this.classService.GetClasses().Where(c => c.ClassNumber == classNumber).ToList();
+            var specialties = new List<SelectListItem>();
+            foreach (var @class in classList)
+            {
+                if (@class.Specialty != "NotSet")
+                {
+                    var specialty = new SelectListItem()
+                    {
+                        Value = @class.Specialty,
+                        Text = @class.Specialty.ToString(),
+                    };
+
+                    specialties.Add(specialty);
+                }
+            }
+
+            return specialties;
         }
 
         private string GetJsonClassNSubjects()
