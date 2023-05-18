@@ -1,0 +1,47 @@
+﻿@model School.Web.ViewModels.PersonInputModel
+
+@{
+    ViewData["Title"] = "Create Person";
+    Layout = "_Layout";
+}
+
+<h3>ViewData["Title"]</h3>
+<hr class="col-sm-4"/>
+
+<form asp-controller="User" asp-action="CreateStudentRequest" method="post" class="form">
+    <div class="col-sm-4">
+        <div class="form-floating mb-3">
+            <input asp-for=@Model.FirstName class="form-control" id="firstName" placeholder="name@example.com">
+            <label asp-for=@Model.FirstName >First name</label>
+            <span asp-validation-for=@Model.FirstName class="text-danger"></span>
+        </div>
+        <div class="form-floating mb-3">
+            <input asp-for=@Model.MiddleName class="form-control" id="middleName" placeholder="middle name...">
+            <label asp-for=@Model.MiddleName>Middle name</label>
+            <span asp-validation-for=@Model.MiddleName class="text-danger"></span>
+
+        </div>
+        <div class="form-floating mb-3">
+            <input asp-for=@Model.LastName class="form-control" id="lastName" placeholder="last name...">
+            <label asp-for=@Model.LastName >Last name</label>
+            <span asp-validation-for=@Model.LastName class="text-danger"></span>
+        </div>
+        <div class="form-floating mb-3">
+            <input asp-for=@Model.Email class="form-control" id="email" placeholder="e-mail...">
+            <label asp-for=@Model.Email>Email</label>
+            <span asp-validation-for=@Model.Email class="text-danger"></span>
+        </div>
+        <div class="form-floating mb-3">
+            <input asp-for=@Model.MobileNumber class="form-control" id="mobileNumber" placeholder="mobile number...">
+            <label asp-for=@Model.MobileNumber >Mobile number</label>
+            <span asp-validation-for=@Model.MobileNumber class="text-danger"></span>
+        </div>
+        <div class="form-floating mb-3">
+            <input asp-for=@Model.Address class="form-control" id="address" placeholder="address...">
+            <label asp-for=@Model.Address>Address</label>
+            <span asp-validation-for=@Model.Address class="text-danger"></span>
+        </div>
+
+        <input class="btn btn-primary" type="submit" value="Submit">
+    </div>
+</form>

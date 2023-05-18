@@ -1,0 +1,89 @@
+﻿@model School.Web.ViewModels.PersonInputModel
+
+@{
+    ViewData["Title"] = "Create student request";
+    Layout = "_Layout";
+}
+<script src = "https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+
+<h3>@ViewData["Title"]</h3>
+<hr class="col-sm-4" />
+
+<form asp-controller="User" asp-action="CreateStudentRequest" method="post" id="class-specialty" class="form">
+    <div class="col-sm-4">
+        <div class="form-floating mb-3">
+            <input asp-for=@Model.FirstName class="form-control" id="firstName" placeholder="name@example.com">
+            <label asp-for=@Model.FirstName>First name</label>
+            <span asp-validation-for=@Model.FirstName class="text-danger"></span>
+        </div>
+        <div class="form-floating mb-3">
+            <input asp-for=@Model.MiddleName class="form-control" id="middleName" placeholder="middle name...">
+            <label asp-for=@Model.MiddleName>Middle name</label>
+            <span asp-validation-for=@Model.MiddleName class="text-danger"></span>
+
+        </div>
+        <div class="form-floating mb-3">
+            <input asp-for=@Model.LastName class="form-control" id="lastName" placeholder="last name...">
+            <label asp-for=@Model.LastName>Last name</label>
+            <span asp-validation-for=@Model.LastName class="text-danger"></span>
+        </div>
+        <div class="form-floating mb-3">
+            <input asp-for=@Model.Email class="form-control" id="email" placeholder="e-mail...">
+            <label asp-for=@Model.Email>Email</label>
+            <span asp-validation-for=@Model.Email class="text-danger"></span>
+        </div>
+        <div class="form-floating mb-3">
+            <input asp-for=@Model.MobileNumber class="form-control" id="mobileNumber" placeholder="mobile number...">
+            <label asp-for=@Model.MobileNumber>Mobile number</label>
+            <span asp-validation-for=@Model.MobileNumber class="text-danger"></span>
+        </div>
+        <div class="form-floating mb-3">
+            <input asp-for=@Model.Address class="form-control" id="address" placeholder="address...">
+            <label asp-for=@Model.Address>Address</label>
+            <span asp-validation-for=@Model.Address class="text-danger"></span>
+        </div>
+        <div class="form-group mb-3">
+            <label asp-for="@Model.ClassNumber" ></label>
+            <select class="form-control" id="classList" asp-items="@Model.ClassesSelectList" name="ClassNumber">
+                <option>Select a class</option>
+                </select>
+        </div>
+        <div class="form-group mb-3">
+            <label asp-for="@Model.Specialty"></label>
+            <select class="form-select" id="specialtyList" name="Specialty">
+                <option>Select a specialty</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+</form>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#classList").change(function () {
+                $("#specialtyList").empty();
+                $.ajax({
+                    type: 'GET',
+                    url: '@Url.Action("GetSpecialtiesByClassNumber")',
+                    dataType: 'json',
+                    data: {classNumber: $("#classList").val() },
+
+                    success: function (specialties) {
+                        $("#specialtyList").append('<option value="' + -1 + '">' + "Select a specialty" + '</option>');
+
+                        $.each(specialties, function (i, specialty) {
+
+                            $("#specialtyList").append('<option value="' + specialty.value + '">' + specialty.text + '</option>')
+                        });
+                    }
+                });
+
+                return false;
+            });
+        });
+    </script>
+}

@@ -50,7 +50,7 @@
         }
 
         [Authorize]
-        public IActionResult Request()
+        public IActionResult SendRequest()
         {
             return this.View();
         }

@@ -158,7 +158,7 @@ namespace School.Web.Areas.Identity.Pages.Account
             {
                 if (user.PersonReqiestId != null)
                 {
-                    returnUrl = Url.Content("~/User/Request");
+                    returnUrl = Url.Content("~/User/SendRequest");
                 }
                 else
                 {
