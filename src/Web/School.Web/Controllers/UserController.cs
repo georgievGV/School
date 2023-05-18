@@ -44,33 +44,15 @@
         }
 
         [Authorize]
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var model = new IndexViewModel();
-            var user = await this.userManager.GetUserAsync(this.User);
+            return this.View();
+        }
 
-            if (user.StudentId != null)
-            {
-                model.Controller = "Student";
-                model.Action = "Index";
-            }
-            else if (user.ParentId != null)
-            {
-                model.Controller = "Parent";
-                model.Action = "Index";
-            }
-            else if (user.TeacherId != null)
-            {
-                model.Controller = "Teacher";
-                model.Action = "Index";
-            }
-            else
-            {
-                model.Controller = "User";
-                model.Action = "Index";
-            }
-
-            return this.View(model);
+        [Authorize]
+        public IActionResult Request()
+        {
+            return this.View();
         }
 
         [Authorize]
@@ -154,42 +136,6 @@
             return specialties;
         }
 
-        private string GetJsonClassNSubjects()
-        {
-            var currClassNumber = 0;
-            var classes = this.classService.GetClasses();
-            var selectList = new List<SelectListItem>();
-
-            for (int i = 0; i < classes.Count; i++)
-            {
-                if (classes[i].ClassNumber != currClassNumber)
-                {
-                    var selectListItem = new SelectListItem
-                    {
-                        Text = classes[i].ClassNumber.ToString(),
-                    };
-
-                    var specialties = this.classService.GetSpecialties(classes[i].ClassNumber);
-                    for (int j = 0; j < specialties.Count; j++)
-                    {
-                        if (j + 1 < specialties.Count)
-                        {
-                            selectListItem.Value += specialties[j] + ", ";
-                        }
-                        else
-                        {
-                            selectListItem.Value += specialties[j];
-                        }
-                    }
-
-                    selectList.Add(selectListItem);
-                    currClassNumber = classes[i].ClassNumber;
-                }
-            }
-
-            var jsonData = JsonSerializer.Serialize(selectList);
-
-            return jsonData;
-        }
+        
     }
 }

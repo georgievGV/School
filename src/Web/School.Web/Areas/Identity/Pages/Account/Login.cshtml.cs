@@ -156,17 +156,24 @@ namespace School.Web.Areas.Identity.Pages.Account
 
             if (user != null)
             {
-                if (user.StudentId != null)
+                if (user.PersonReqiestId != null)
                 {
-                    returnUrl = Url.Content("~/Student/Index");
+                    returnUrl = Url.Content("~/User/Request");
                 }
-                else if (user.ParentId != null)
+                else
                 {
-                    returnUrl = Url.Content("~/SignIn/Index");
-                }
-                else if (user.TeacherId != null)
-                {
-                    returnUrl = Url.Content("~/SignIn/Index");
+                    if (user.StudentId != null)
+                    {
+                        returnUrl = Url.Content("~/Student/Index");
+                    }
+                    else if (user.ParentId != null)
+                    {
+                        returnUrl = Url.Content("~/SignIn/Index");
+                    }
+                    else if (user.TeacherId != null)
+                    {
+                        returnUrl = Url.Content("~/SignIn/Index");
+                    }
                 }
             }
 
