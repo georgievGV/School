@@ -26,6 +26,15 @@
             return teacher;
         }
 
+        public TeacherRequest CreateTeacherRequest(string firstName, string middleName, string lastName, string email, string mobileNumber, string address)
+        {
+            var request = new TeacherRequest(firstName, middleName, lastName, email, mobileNumber, address);
+            this.dbContext.TeacherRequests.Add(request);
+            this.dbContext.SaveChanges();
+
+            return request;
+        }
+
         public void AddClass(Class @class, Teacher teacher)
         {
             var currClass = new ClassTeacher

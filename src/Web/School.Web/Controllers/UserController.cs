@@ -24,6 +24,7 @@
         private readonly IStudentService studentService;
         private readonly IClassService classService;
         private readonly ISubjectService subjectService;
+        private readonly ITeacherService teacherService;
 
         public UserController(
             ILogger<HomeController> logger,
@@ -32,7 +33,8 @@
             SignInManager<ApplicationUser> signInManager,
             IStudentService studentService,
             IClassService classService,
-            ISubjectService subjectService)
+            ISubjectService subjectService,
+            ITeacherService teacherService)
         {
             this.logger = logger;
             this.dbContext = dbContext;
@@ -41,6 +43,7 @@
             this.studentService = studentService;
             this.classService = classService;
             this.subjectService = subjectService;
+            this.teacherService = teacherService;
         }
 
         [Authorize]
@@ -70,7 +73,7 @@
         {
             if (!this.ModelState.IsValid)
             {
-                return this.View("CreatePerson", input);
+                return this.View("CreateStudentRequest", input);
             }
 
 
@@ -81,7 +84,31 @@
             user.PersonReqiestId = request.Id;
 
             this.dbContext.SaveChanges();
-            return this.Redirect("/Student/Index");
+            return this.Redirect("/User/SendRequest");
+        }
+
+        [Authorize]
+        public IActionResult CreateTeacherRequest()
+        {
+            return this.View();
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> CreateTeacherRequest(PersonInputModel input)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View("CreatePerson", input);
+            }
+
+            var request = this.teacherService.CreateTeacherRequest(
+            input.FirstName, input.MiddleName, input.LastName, input.Email, input.MobileNumber, input.Address);
+            var user = await this.userManager.GetUserAsync(this.User);
+            user.PersonReqiestId = request.Id;
+
+            this.dbContext.SaveChanges();
+            return this.Redirect("/User/SendRequest");
         }
 
 
